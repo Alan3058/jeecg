@@ -1,0 +1,455 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.1'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+group 'org.jeecgframework'
+version '3.7.3'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+    maven {
+        url "http://maven.jeecg.org/nexus/content/repositories/jeecg"
+    }
+    maven {
+        url "http://maven.jeecg.org/nexus/content/repositories/snapshots"
+    }
+    mavenCentral()
+}
+
+ext {
+    codegenerate_version = "3.6.2"
+    minidao_version = "1.6.2"
+
+    guava_version = "16.0.1"
+    spring_version = "4.0.9.RELEASE"
+    hibernate_version = "4.1.0.Final"
+    hibernate_common_annotations_version = "4.0.2.Final"
+    hibernate_jpa_version = "1.0.1.Final"
+
+    // 工作流
+    activiti_version = "5.11"
+    mybatis_version = "3.1.1"
+
+    // 辅助依赖包
+    cglib_version = "2.2"
+    aspectj_version = "1.6.9"
+    jodd_version = "3.3.7"
+    javassist_version = "3.15.0-GA"
+    ant_version = "1.6.5"
+
+    mybatis_spring_version = "1.1.1"
+
+    // 工具包
+    // json start
+    jackson_version = "1.8.4"
+    jacksonframework_version = "1.84"
+    json_lib_version = "2.1"
+    fastjson_lib_version = "1.2.6"
+    gson_version = "2.2.4"
+    // json start
+    dom4j_version = "1.6.1"
+    slf4j_version = "1.6.1"
+    log4j_version = "1.2.16"
+    classmate_version = "1.1.0"
+    commons_beanutils_version = "1.7.0"
+    commons_collections_version = "3.2.1"
+    commons_chain_version = "1.2"
+    commons_codec_version = "1.9"
+    commons_digester_version = "2.0"
+    commons_io_version = "1.3.2"
+    commons_fileupload_version = "1.2.1"
+    commons_lang_version = "2.6"
+    commons_lang3_version = "3.1"
+    commons_email_version = "1.2"
+    commons_logging_version = "1.0.4"
+    commons_logging_api_version = "1.1"
+    commons_validator_version = "1.3.1"
+    ehcache_version = "2.4.3"
+    freemarker_version = "2.3.19"
+    hibernate_validator_version = "4.2.0.Final"
+    poi_version = "3.9"
+    antlr_version = "3.3"
+    openoffice_version = "3.2.1"
+    jodconverter_version = "3.0-beta-4"
+    xwork_core_version = "2.1.6"
+
+    // 数据库组件包 _start
+    proxool_version = "0.9.1"
+    commons_pool_version = "1.6"
+    commons_dbcp_version = "1.4"
+    druid_version = "0.2.9"
+    mysql_version = "5.1.27"
+    // sqlserver 2008
+    sqlserver_version = "4.0"
+    // sqlserver2005
+    //sqlserver_version="1.0.0"
+
+    // oracle
+    ojdbc14_version = "10.2.0.5.0"
+    // jtds for mssql/db2
+    jtds_version = "1.2.4"
+    h2_version = "1.3.170"
+    postgresql_version = "9.1-903.jdbc4"
+
+    // 测试依赖包
+    junit_version = "4.7"
+    hamcrest_version = "1.3"
+
+    // java生成缩略图
+    thumbnailator_version = "0.4.6"
+    pinyin4j_version = "2.5.0"
+    org_quartz_version = "1.6.2"
+    activation_version = "1.1.1"
+    aopalliance_version = "1.0"
+    xstream_version = "1.4.4"
+    groovy_version = "2.3.3"
+    //poi 工具类
+    jeasypoi_version = "2.1.4"
+    cxf_version = "3.0.2"
+    //maven插件变量
+    tomcat_version = "2.2"
+    jetty_version = "7.6.14.v20131031"
+    spring_data_redis_version = "1.6.2.RELEASE"
+    jedis_version = "2.9.0"
+    webserver_port = "8080"
+}
+
+dependencies {
+    // activation
+    compile("javax.activation:activation:${activation_version}")
+
+    // aopalliance
+    compile("aopalliance:aopalliance:${aopalliance_version}")
+
+    // 自定义的依赖包
+    compile("org.jeecgframework:codegenerate:${codegenerate_version}")
+    compile("org.jeecgframework:minidao-pe:${minidao_version}") {
+        exclude module: "org.springframework:spring-asm"
+        exclude module: "org.junit:com.springsource.org.junit"
+    }
+    // java生成缩略图
+    compile("net.coobird:thumbnailator:${thumbnailator_version}")
+
+    compile("org.jboss:jboss-vfs:3.1.0.Final")
+    compile("pinyin4j:pinyin4j:${pinyin4j_version}")
+
+    compile("com.springsource:org.quartz:${org_quartz_version}")
+    // SPRING start
+    compile("org.springframework:spring-core:${spring_version}")
+    compile("org.springframework:spring-beans:${spring_version}")
+    compile("org.springframework:spring-context:${spring_version}")
+    compile("org.springframework:spring-aop:${spring_version}")
+    compile("org.springframework:spring-tx:${spring_version}")
+    compile("org.springframework:spring-expression:${spring_version}")
+    compile("org.springframework:spring-aspects:${spring_version}")
+    compile("org.springframework:spring-context-support:${spring_version}")
+    // SPRING end
+
+    // hibernate
+    compile("org.hibernate:hibernate-core:${hibernate_version}")
+    compile("org.hibernate:hibernate-ehcache:${hibernate_version}")
+    compile("org.hibernate:hibernate-proxool:${hibernate_version}")
+    compile("org.hibernate.common:hibernate-commons-annotations:${hibernate_common_annotations_version}")
+    compile("org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${hibernate_jpa_version}")
+    // anltr  hibernate重复
+
+    //	compile("org.antlr:antlr:${antlr_version}")
+
+    // spring orm
+    compile("org.springframework:spring-orm:${spring_version}")
+    compile("org.springframework:spring-jdbc:${spring_version}")
+
+    //工作流依赖包
+    //	compile("org.activiti:activiti-engine:${activiti_version}")
+    //	compile("org.activiti:activiti-spring:${activiti_version}")
+
+    // mybatis 20170218-去掉无效引用-scott
+    //	compile("org.mybatis:mybatis:${mybatis_version}")
+    //	compile("org.mybatis:mybatis-spring:${mybatis_spring_version}")
+
+    // 数据库相关依赖包 _start
+    //proxool start
+    compile("com.cloudhopper.proxool:proxool:${proxool_version}") {
+        exclude module: "geronimo-spec:geronimo-spec-javamail"
+        exclude module: "avalon-framework:avalon-framework-api"
+        exclude module: "com.cloudhopper.proxool:proxool-cglib"
+    }
+
+    //compile("com.cloudhopper.proxool:proxool-cglib:${proxool_version}")
+
+    // proxool end
+
+    runtime("commons-pool:commons-pool:${commons_pool_version}")
+    compile("commons-dbcp:commons-dbcp:${commons_dbcp_version}")
+
+    runtime("com.alibaba:druid:${druid_version}")
+    //  mysql
+    runtime("mysql:mysql-connector-java:${mysql_version}")
+
+    //  sqlserver
+    compile("com.microsoft.sqlserver:sqljdbc4:${sqlserver_version}")
+    // runtime("org.jeecgframework:jdbc2005:${sqlserver_version}")
+
+    //  oracle
+    compile("com.oracle:ojdbc14:${ojdbc14_version}")
+
+    // jtds for mssql/db2
+    //	runtime("net.sourceforge.jtds:jtds:${jtds_version}")
+
+    // h2
+    //   testCompile("com.h2database:h2:${h2_version}")
+
+    // postgresql
+    // compile("org.jeecgframework:postgresql:${postgresql_version}")
+
+    // 数据库相关依赖包 _end
+
+    // WEB begin
+    // spring mvc
+    compile("org.springframework:spring-web:${spring_version}")
+    compile("org.springframework:spring-webmvc:${spring_version}")
+    // web begin Spring MVC Test Framework 需要 servlet-api 3.0 以上
+
+    providedCompile("javax.servlet:javax.servlet-api:3.0.1")
+    providedCompile("javax.servlet:jsp-api:2.0") {
+        exclude module: "javax.servlet:servlet-api"
+    }
+    compile("javax.servlet:jstl:1.2")
+    // WEB end
+
+    // 辅助依赖包 _start
+    compile("cglib:cglib-nodep:${cglib_version}")
+    compile("org.aspectj:aspectjrt:${aspectj_version}")
+    runtime("org.aspectj:aspectjweaver:${aspectj_version}")
+    compile("org.jodd:jodd:${jodd_version}")
+    compile("org.javassist:javassist:${javassist_version}")
+    compile("ant:ant:${ant_version}")
+    // 辅助依赖包 _end
+
+    // 工具包
+    // JSON begin
+    compile("org.codehaus.jackson:jackson-mapper-asl:${jackson_version}")
+    compile("org.codehaus.jackson:jackson-core-asl:${jackson_version}")
+    compile("net.sf.json-lib:json-lib:${json_lib_version}:jdk15")
+    compile("com.alibaba:fastjson:${fastjson_lib_version}")
+    compile("com.google.code.gson:gson:${gson_version}")
+    // JSON end
+
+    // dom4j
+    compile("dom4j:dom4j:${dom4j_version}") {
+        exclude module: "xml-apis:xml-apis"
+    }
+
+    // slf4j
+    compile("org.slf4j:slf4j-api:${slf4j_version}")
+    compile("org.slf4j:slf4j-log4j12:${slf4j_version}")
+
+    // log4j
+    compile("log4j:log4j:${log4j_version}")
+
+    //Logger Support
+    //	compile("ch.qos.logback:logback-classic:1.0.7")
+    //  compile("org.slf4j:log4j-over-slf4j:1.6.1")
+
+    // classmate
+    compile("com.fasterxml:classmate:${classmate_version}")
+
+    // commons-beanutils
+    compile("commons-beanutils:commons-beanutils:${commons_beanutils_version}") {
+        exclude module: "commons-logging:commons-logging"
+    }
+
+    // commons-collections
+    compile("commons-collections:commons-collections:${commons_collections_version}")
+
+    // commons-chain
+    compile("commons-chain:commons-chain:${commons_chain_version}")
+
+    // commons-codec
+    compile("commons-codec:commons-codec:${commons_codec_version}")
+
+    // commons-digester
+    compile("commons-digester:commons-digester:${commons_digester_version}")
+
+    // commons-io
+    compile("commons-io:commons-io:${commons_io_version}")
+
+    // commons-fileupload
+    compile("commons-fileupload:commons-fileupload:${commons_fileupload_version}")
+
+    // commons-lang
+    compile("commons-lang:commons-lang:${commons_lang_version}")
+
+    // commons-lang3
+    compile("org.apache.commons:commons-lang3:${commons_lang3_version}")
+
+    // commons-email
+    compile("org.apache.commons:commons-email:${commons_email_version}")
+
+    // commons-logging
+    compile("commons-logging:commons-logging:${commons_logging_version}") {
+        exclude module: "javax.servlet:servlet-api"
+    }
+
+    compile("commons-logging:commons-logging-api:${commons_logging_api_version}")
+
+    // commons-validator
+    compile("commons-validator:commons-validator:${commons_validator_version}")
+
+    // ehcache
+    compile("net.sf.ehcache:ehcache-core:${ehcache_version}")
+
+    // freemarker
+    //	compile("org.freemarker:freemarker:${freemarker_version}")
+    compile("org.jeecgframework:freemarker-null:${freemarker_version}")
+
+    // JSR303 Bean Validator
+    compile("org.hibernate:hibernate-validator:${hibernate_validator_version}")
+    compile("org.hibernate:hibernate-validator-annotation-processor:${hibernate_validator_version}")
+
+    // poi start
+    compile("org.apache.poi:poi:${poi_version}")
+    compile("org.apache.poi:poi-ooxml:${poi_version}")
+    compile("org.apache.poi:poi-ooxml-schemas:${poi_version}")
+    compile("org.apache.poi:poi-scratchpad:${poi_version}")
+    compile("org.jeecgframework:jeasypoi-base:${jeasypoi_version}") {
+        exclude module: "org.jeecgframework:jeasypoi-annotation"
+    }
+    compile("org.jeecgframework:jeasypoi-web:${jeasypoi_version}") {
+        exclude module: "org.jeecgframework:jeasypoi-base"
+    }
+    compile("org.jeecgframework:jeasypoi-annotation:${jeasypoi_version}")
+    // poi end
+
+    // openoffice start
+    compile("org.openoffice:juh:${openoffice_version}")
+    compile("org.openoffice:unoil:${openoffice_version}")
+    compile("org.openoffice:jurt:${openoffice_version}")
+
+    // java的OpenDucument文件转换器，它利用OpenOffice来进行转换工作
+    compile("org.artofsolving:jodconverter:${jodconverter_version}")
+
+    // openoffice end
+    compile("com.opensymphony:xwork-core:${xwork_core_version}")
+
+    // hamcrest
+    compile("org.hamcrest:hamcrest-all:${hamcrest_version}")
+
+    // spring
+    compile("org.springframework:spring-test:${spring_version}")
+
+    // jacob
+    compile("org.jeecgframework:jacob:1.0.0")
+
+    // highchart 图片导出
+    compile("org.jeecgframework:batik-all:1.6")
+    compile("org.jeecgframework:fop:1.0")
+
+    compile("xerces:xercesImpl:2.7.1")
+    compile("xml-apis:xml-apis-ext:1.3.04")
+    compile("xml-apis:xml-apis:1.3.04")
+    compile("org.apache.xmlgraphics:xmlgraphics-commons:1.4")
+    compile("xalan:xalan:2.7.0")
+
+    // Xml数据导出导入
+    compile("com.thoughtworks.xstream:xstream:${xstream_version}")
+
+    // groovy 脚本
+    compile("org.codehaus.groovy:groovy:${groovy_version}")
+
+    compile("commons-httpclient:commons-httpclient:3.0.1")
+    compile("org.apache.geronimo.specs:geronimo-javamail_1.4_spec:1.6")
+
+    // baidu ueditor
+    compile("com.baidu.ueditor.jeecg:ueditor:1.1.1")
+    compile("com.baidu.ueditor.jeecg:json:1.0")
+    // baidu ueditor
+
+    // jsoup HTML parser library @ http://jsoup.org/
+    compile("org.jsoup:jsoup:1.8.3")
+
+    // google 工具类
+    compile("com.google.guava:guava:${guava_version}")
+
+    // kisso begin
+    compile("com.baomidou:kisso:3.6.11")
+    // kisso end
+
+    // cxf webservice
+    //	compile("org.apache.cxf:cxf-rt-frontend-jaxws:${cxf_version}")
+    //	compile("org.apache.cxf:cxf-rt-transports-http:${cxf_version}")
+
+    // jeecg plugin
+    compile("org.p3framework:jeecg-p3-core:1.1.1")
+    compile("org.p3framework:jeecg-p3-ui:1.1.3")
+    compile("org.p3framework:jeecg-p3-bizcore:1.0-SNAPSHOT")
+    compile("org.p3framework:jeecg-p3-generate:1.1-SNAPSHOT")
+
+    // 插件demo
+    compile("org.p3framework:jeecg-p3-biz-demo:1.0.2")
+
+    // 插件: 我的邮箱
+    compile("org.p3framework:jeecg-p3-biz-mail:1.0.0")
+
+    // 在线聊天工具
+    compile("org.p3framework:jeecg-p3-biz-chat:1.0.3")
+
+    // begin 腾讯云
+    compile("com.qcloud:cos_api:4.4")
+    compile("org.apache.httpcomponents:httpclient:4.5.1")
+    compile("org.apache.httpcomponents:httpcore:4.4.3")
+    compile("org.apache.httpcomponents:httpmime:4.5.1")
+    // end 腾讯云
+
+    // redis cache related.....start
+    compile("org.springframework.data:spring-data-redis:${spring_data_redis_version}")
+    compile("redis.clients:jedis:${jedis_version}")
+    // redis cache related.....end
+
+    // commons-net..ftp..start
+    compile("commons-net:commons-net:3.6")
+
+    // commons-net..ftp...end
+    // swagger  start
+    compile("io.springfox:springfox-swagger2:2.4.0")
+
+    compile("com.fasterxml.jackson.core:jackson-core:2.5.1")
+    compile("com.fasterxml.jackson.core:jackson-databind:2.5.1")
+    compile("com.fasterxml.jackson.core:jackson-annotations:2.5.1")
+
+    // swagger   end
+    // JWT  begin
+    compile("io.jsonwebtoken:jjwt:0.9.0")
+    // JWT  end
+
+    testCompile("com.jayway.jsonpath:json-path:0.8.1")
+
+    // TEST begin
+    // junit
+    testCompile("junit:junit:${junit_version}")
+	
+	def tomcatVersion = '7.0.59'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+
+war {
+    baseName = "jeecg"
+}
