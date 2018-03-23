@@ -22,6 +22,7 @@ import org.jeecgframework.web.system.pojo.base.TSTimeTaskEntity;
 import org.jeecgframework.web.system.service.SystemService;
 import org.jeecgframework.web.system.service.TimeTaskServiceI;
 import org.quartz.CronTrigger;
+import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,7 +115,7 @@ public class TimeTaskController extends BaseController {
 	public AjaxJson save(TSTimeTaskEntity timeTask, HttpServletRequest request) {
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		CronTrigger trigger = new CronTrigger();
+		CronTriggerImpl trigger = new CronTriggerImpl();
 		try {
 			trigger.setCronExpression(timeTask.getCronExpression());
 		} catch (ParseException e) {
