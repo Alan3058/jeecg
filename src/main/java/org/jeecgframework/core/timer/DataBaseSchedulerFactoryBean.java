@@ -28,7 +28,8 @@ public class DataBaseSchedulerFactoryBean extends SchedulerFactoryBean {
 	 */
 	public void afterPropertiesSet() throws Exception {
 		super.afterPropertiesSet();
-		Set<TriggerKey> triggerKeys = this.getScheduler().getTriggerKeys(GroupMatcher.groupEquals(Scheduler.DEFAULT_GROUP));
+		Set<TriggerKey> triggerKeys = this.getScheduler()
+				.getTriggerKeys(GroupMatcher.triggerGroupEquals(Scheduler.DEFAULT_GROUP));
 		TSTimeTaskEntity task;
 		for (TriggerKey triggerKey : triggerKeys) {
 			task = timeTaskService.findUniqueByProperty(TSTimeTaskEntity.class, "taskId", triggerKey.getName());

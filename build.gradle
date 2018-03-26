@@ -6,17 +6,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.bmuschko:gradle-tomcat-plugin:2.1'
+        classpath 'org.akhikhl.gretty:gretty:+'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'org.akhikhl.gretty'
 
 group 'org.jeecgframework'
 version '3.7.3'
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenLocal()
@@ -445,17 +446,11 @@ dependencies {
     // TEST begin
     // junit
     testCompile("junit:junit:${junit_version}")
-	
-	def tomcatVersion = '7.0.59'
-    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
 
 war {
     baseName = "jeecg"
 }
-
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"

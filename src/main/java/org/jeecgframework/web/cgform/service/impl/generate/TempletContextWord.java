@@ -47,7 +47,7 @@ public class TempletContextWord {
 	private  SystemService systemService;
 	@Autowired
 	private CgformFtlServiceI cgformFtlService;
-	@Resource(name = "freemarkerWord")
+	// @Resource(name = "freemarkerWord")
 	private Configuration freemarker;
 	
 	private Map<String, TemplateDirectiveModel> tags;

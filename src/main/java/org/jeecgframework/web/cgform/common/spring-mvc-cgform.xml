@@ -16,6 +16,7 @@
 	</bean>
 	<!-- Template Context -->
 	<bean id="templetContext" class="org.jeecgframework.web.cgform.engine.TempletContext">
+		<property name="freemarker" ref="freemarker"></property>
 		<property name="tags">
 			<map>
 				<entry key="DictData" value-ref="dictDataTag" />
@@ -31,6 +32,7 @@
 	</bean>
 	<!-- Template Context 自定义word代码生成器 -->
 	<bean id="templetContextWord" class="org.jeecgframework.web.cgform.service.impl.generate.TempletContextWord">
+		<property name="freemarker" ref="freemarkerWord"></property>
 		<property name="tags">
 			<map>
 				<entry key="DictData" value-ref="dictDataTag" />

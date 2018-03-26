@@ -22,14 +22,14 @@ import java.util.Map;
 @Component("templetContext")
 public class TempletContext {
 
-	@Resource(name = "freemarker")
+	// @Resource(name = "freemarker")
 	private Configuration freemarker;
-	
+
 	@Autowired
 	private CgFormFieldServiceI cgFormFieldService;
 
 	private Map<String, TemplateDirectiveModel> tags;
-	
+
 	private static final String ENCODING = "UTF-8";
 
 	private static Cache ehCache;//ehcache
@@ -88,7 +88,7 @@ public class TempletContext {
 		}
 
 	}
-	
+
 	/**
 	 * 从缓存中读取ftl模板
 	 * @param template
@@ -113,7 +113,7 @@ public class TempletContext {
 		}
 		return template;
 	}
-	
+
 	/**
 	 * 从缓存中读取ftl模板
 	 * @param template
