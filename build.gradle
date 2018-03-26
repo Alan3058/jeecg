@@ -151,7 +151,7 @@ dependencies {
     compile("pinyin4j:pinyin4j:${pinyin4j_version}")
 
     // https://mvnrepository.com/artifact/org.quartz-scheduler/quartz
-    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.0'
+    compile('org.quartz-scheduler:quartz:2.3.0')
     compile("com.springsource:org.quartz:${org_quartz_version}")
     // SPRING start
     compile("org.springframework:spring-core:${spring_version}")
@@ -454,6 +454,23 @@ war {
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+
+processResources {
+    from('src/main/java') {
+        include '**/*.xml'
+        include '**/*.sql'
+        include '**/*.ftl'
+    }
+}
+
+processTestResources {
+    from('src/test/java') {
+        include '**/*.xml'
+        include '**/*.sql'
+        include '**/*.ftl'
+    }
+
 }
 
 javadoc {
