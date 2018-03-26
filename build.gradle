@@ -38,7 +38,7 @@ ext {
     minidao_version = "1.6.2"
 
     guava_version = "16.0.1"
-    spring_version = "4.0.9.RELEASE"
+    spring_version = "4.3.12.RELEASE"
     hibernate_version = "4.1.0.Final"
     hibernate_common_annotations_version = "4.0.2.Final"
     hibernate_jpa_version = "1.0.1.Final"
@@ -58,7 +58,7 @@ ext {
 
     // 工具包
     // json start
-    jackson_version = "1.8.4"
+    jackson_version = "2.9.4"
     jacksonframework_version = "1.84"
     json_lib_version = "2.1"
     fastjson_lib_version = "1.2.6"
@@ -247,8 +247,11 @@ dependencies {
 
     // 工具包
     // JSON begin
-    compile("org.codehaus.jackson:jackson-mapper-asl:${jackson_version}")
-    compile("org.codehaus.jackson:jackson-core-asl:${jackson_version}")
+//    compile("org.codehaus.jackson:jackson-mapper-asl:${jackson_version}")
+//    compile("org.codehaus.jackson:jackson-core-asl:${jackson_version}")
+    compile("com.fasterxml.jackson.core:jackson-core:${jackson_version}")
+    compile("com.fasterxml.jackson.core:jackson-databind:${jackson_version}")
+    compile("com.fasterxml.jackson.core:jackson-annotations:${jackson_version}")
     compile("net.sf.json-lib:json-lib:${json_lib_version}:jdk15")
     compile("com.alibaba:fastjson:${fastjson_lib_version}")
     compile("com.google.code.gson:gson:${gson_version}")
@@ -431,10 +434,6 @@ dependencies {
     // commons-net..ftp...end
     // swagger  start
     compile("io.springfox:springfox-swagger2:2.4.0")
-
-    compile("com.fasterxml.jackson.core:jackson-core:2.5.1")
-    compile("com.fasterxml.jackson.core:jackson-databind:2.5.1")
-    compile("com.fasterxml.jackson.core:jackson-annotations:2.5.1")
 
     // swagger   end
     // JWT  begin

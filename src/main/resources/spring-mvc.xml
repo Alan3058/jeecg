@@ -25,7 +25,7 @@
 	<mvc:resources mapping="/swagger/**" location="/swagger/" cache-period="31556926" />
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="objectMapper" ref="customObjectMapper"></property> 
 		<property name="supportedMediaTypes">
 			<list>
